@@ -28,4 +28,27 @@ trait NNP10 {
   def reverse(list: List[Int]): List[Int] = {
     list.reverse
   }
+
+  // 6
+  def isPalindrome(list: List[Int]): Boolean = {
+    list.reverse == list
+  }
+
+  // 7
+  def flatten(list: List[Any]): List[Int] = {
+    List()
+  }
+
+  // 総和
+  //def sum(n: Int): Int = n + sum(n - 1)
+  def sum(n: Int): Int = {
+    def plus(a: Int, acc: Int): Int = {
+      if (a == 0) {
+        acc
+      } else {
+        plus(a - 1, acc + a)
+      }
+    }
+    plus(n, 0)
+  }
 }

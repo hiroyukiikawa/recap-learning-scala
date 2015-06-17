@@ -43,7 +43,7 @@ class NNP10Spec extends FunSpec with Matchers with NNP10 {
         reverse(List(1, 1, 2, 3, 5, 8)) should be (List(8, 5, 3, 2, 1, 1))
       }
     }
-/*
+
     // P06 (*) Find out whether a list is a palindrome.
     describe("P06") {
       it("Find out whether a list is a palindrome.") {
@@ -57,7 +57,7 @@ class NNP10Spec extends FunSpec with Matchers with NNP10 {
         flatten(List(List(1, 1), 2, List(3, List(5, 8)))) should be (List(1, 1, 2, 3, 5, 8))
       }
     }
-
+/*
     // P08 (**) Eliminate consecutive duplicates of list elements.
     // If a list contains repeated elements they should be replaced with a single copy of the element.
     // The order of the elements should not be changed.
@@ -84,5 +84,10 @@ class NNP10Spec extends FunSpec with Matchers with NNP10 {
       }
     }
 */
+    describe("総和") {
+      it("Sum") {
+        sum(10) should be ((1 to 10).sum)
+      }
+    }
   }
 }
