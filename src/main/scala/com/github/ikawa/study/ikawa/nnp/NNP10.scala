@@ -53,18 +53,36 @@ trait NNP10 {
   }
 
   // 5
+
   def reverse(list: List[Int]): List[Int] = {
     //list.reverse
-    list match {
-      case head::Nil => println("head:"+head);List(head)
-      case head::tail => reverse(tail):::head::Nil
-      case _ => throw new Exception
+    @tailrec
+    def r(i: List[Int], l: List[Int]): List[Int] = {
+      i match {
+        case Nil => l
+        case init::last => r(i.init, l:::List(i.last))
+      }
     }
+    r(list, List())
   }
 
   // 6
   def isPalindrome(list: List[Int]): Boolean = {
-    list.reverse == list
+    //list.reverse == list
+    @tailrec
+    def compare(front: List[Int], back: List[Int]): Boolean = {
+      (front, back) match {
+        case (Nil, Nil) => true
+        case (f: List[Int], b: List[Int]) => {
+          if (f.head == b.last) {
+            compare(f.tail, b.init)
+          } else {
+            false
+          }
+        }
+      }
+    }
+    compare(list, list)
   }
 
   // 7
