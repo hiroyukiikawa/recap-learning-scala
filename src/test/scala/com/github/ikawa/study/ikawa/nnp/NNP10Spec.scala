@@ -57,7 +57,7 @@ class NNP10Spec extends FunSpec with Matchers with NNP10 {
         flatten(List(List(1, 1), 2, List(3, List(5, 8)))) should be (List(1, 1, 2, 3, 5, 8))
       }
     }
-/*
+
     // P08 (**) Eliminate consecutive duplicates of list elements.
     // If a list contains repeated elements they should be replaced with a single copy of the element.
     // The order of the elements should not be changed.
@@ -83,7 +83,7 @@ class NNP10Spec extends FunSpec with Matchers with NNP10 {
         encode(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) should be (List((4,'a), (1,'b), (2,'c), (2,'a), (1,'d), (4,'e)))
       }
     }
-*/
+
     describe("総和") {
       it("Sum") {
         sum(10) should be ((1 to 10).sum)

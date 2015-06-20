@@ -86,8 +86,67 @@ trait NNP10 {
   }
 
   // 7
-  def flatten(list: List[Any]): List[Int] = {
-    List()
+  def flatten(list: List[Any]): List[Any] = {
+    @tailrec
+    def flat(acc: List[Any], rest: List[Any]): List[Any] = {
+      rest match {
+        case Nil => acc
+        case head::tail => head match {
+          case Nil => flat(acc, tail)
+          case l: List[_] => flat(acc, l.head::l.tail::tail)
+          case value: Any => flat(value::acc, rest.tail)
+        }
+      }
+    }
+    flat(List(), list).reverse
+  }
+
+  // 8
+  def compress(list: List[Symbol]): List[Symbol] = {
+    @tailrec
+    def cmp(acc: List[Symbol], rest: List[Symbol]): List[Symbol] = {
+      rest match {
+        case Nil => acc
+        case head::tail if acc.isEmpty || acc.head != head => cmp(head::acc, tail)
+        case head::tail => cmp(acc, tail)
+      }
+    }
+    cmp(List(), list).reverse
+  }
+
+  // 9
+  def pack(list: List[Symbol]): List[List[Symbol]] = {
+    @tailrec
+    def pck(acc: List[List[Symbol]], rest: List[Symbol]): List[List[Symbol]] = {
+      rest match {
+        case Nil => acc
+        case head::tail if (acc.isEmpty) => pck(List(head)::acc, tail)
+        case head::tail if (acc.head.head == rest.head) => pck(List(head::acc.head):::acc.tail, tail)
+        case head::tail if (acc.head.head != rest.head) => pck(List(head)::acc, tail)
+      }
+    }
+    pck(List(), list).reverse
+  }
+
+  // 10
+  def encode(list: List[Symbol]): List[(Int, Symbol)] = {
+    @tailrec
+    def enc(acc: List[(Int, Symbol)], rest: List[Symbol]): List[(Int, Symbol)] = {
+      rest match {
+        case Nil => acc
+        case head::tail =>
+          acc match {
+            case Nil => enc((1, head)::acc, tail)
+            case (n:Int, s: Symbol)::t =>
+              if (s == head) {
+                enc((n + 1, head)::acc.tail, tail)
+              } else {
+                enc((1, head)::acc, tail)
+              }
+          }
+      }
+    }
+    enc(List(), list).reverse
   }
 
   // 総和
