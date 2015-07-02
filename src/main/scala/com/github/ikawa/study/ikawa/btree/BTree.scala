@@ -52,13 +52,25 @@ case class BTree(node: Node) {
 
 object BTree {
   def apply(list: List[Int]): BTree = {
-    list match {
-      case head::Nil => BTree(Leaf(head))
-      case List(l,c,r) => BTree(Branch(Leaf(l), c, Leaf(r)))
-      case _ => BTree(Leaf(1))
+    def toNode(list: List[Int]): Node = {
+      list match {
+        case head::Nil => Leaf(head)
+        case l => {
+          val center = centerIndex(list)
+          val left = list.take(center)
+          val right = list.drop(center + 1)
+          Branch(toNode(left), l(center), toNode(right))
+        }
+      }
+    }
+    BTree(toNode(list))
+  }
+
+  private def centerIndex(list: List[Int]): Int = {
+    list.size % 2 match {
+      case 0 => throw new IllegalArgumentException
+      case 1 => list.size / 2
     }
   }
-  private def toBranch(l: Int, c: Int, r: Int) = {
-    Branch
-  }
+
 }
